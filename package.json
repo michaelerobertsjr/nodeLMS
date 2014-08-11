@@ -20,7 +20,8 @@
     "express": "^4.8.2",
     "jade": "^1.5.0",
     "mongoose": "^3.8.14",
-      "stylus":"0.47.x"
+      "stylus":"0.47.x",
+      "morgan":""
   },
   "devDependencies": {
     "bower": "^1.3.9"
