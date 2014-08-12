@@ -39,17 +39,6 @@ db.on('error', console.error.bind(console, 'connection error...'));
 db.once('open', function callback(){
    console.log('nodelms db opened');
 });
-// Create a schema for the collection
-var messageSchema = mongoose.Schema({message:String});
-// Create a model based on the schema
-var Message = mongoose.model('Message', messageSchema);
-// A variable that will hold the data that is pulled out of the database
-var mongoMessage;
-// Find one document and execute the call back to make the data avail for
-// later use in a view.
-Message.findOne().exec(function(err, messageDoc){
-    mongoMessage = messageDoc.message;
-});
 
 app.get('/partials/:partialPath', function (req, res) {
    res.render('partials/' + req.params.partialPath);
@@ -57,9 +46,7 @@ app.get('/partials/:partialPath', function (req, res) {
 
 // Finally catch all get requests and route them to index
 app.get('*', function(req, res) {
-        res.render('index', {
-            mongoMessage: mongoMessage
-        });
+        res.render('index');
 });
 
 // check for port value and set to default if it is not avail

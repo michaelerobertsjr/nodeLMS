@@ -1,6 +1,18 @@
 extends ../includes/layout
 
 block main-content
+    .navbar.navbar-inverse.navbar-fixed-top
+        .container
+            .navbar-header
+                a.navbar-brand(href="/") nodeLMS
+                    h6 -A NodeJS Learning Management System
+            .navbar-collapse.collapse
+                ul.nav.navbar-nav
+                    li
+                        a(href="/") Home
+
     section.content
         div(ng-view)
-    h2= mongoMessage
+
+    footer.container.text-center
+        p &copy; 2014 Michael Roberts Jr.
