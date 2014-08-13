@@ -40,8 +40,8 @@ db.once('open', function callback(){
    console.log('nodelms db opened');
 });
 
-app.get('/partials/:partialPath', function (req, res) {
-   res.render('partials/' + req.params.partialPath);
+app.get('/partials/*', function (req, res) {
+   res.render('../../public/app/' + req.params[0]);
 });
 
 // Finally catch all get requests and route them to index
