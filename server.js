@@ -1,58 +1,19 @@
-var express = require ('express'),
-    stylus = require('stylus'),
-    morgan = require('morgan'),
-    bodyParser = require('body-parser'),
-    mongoose = require('mongoose');
+var express = require ('express');
 
 // Check if environment is dev if it is not set then set to development
 var env = process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
 var app = express();
 
-// Handle Stylus CSS pre-processing
-function compile(str, path){
-    return stylus(str).set('filename', path);
-}
+var config = require('./server/config/config')[env];
 
-app.set('views',__dirname + '/server/views' );
-app.set('view engine', 'jade');
-app.use(morgan('dev')); // Logging messages to the console
-app.use(stylus.middleware(
-    {
-        src: __dirname + 'public',
-        compile: compile
+require('./server/config/express')(app, config);
 
-    }
-));
+require('./server/config/mongoose')(config);
 
-// Serve static content from the public folder
-app.use(express.static(__dirname = 'public'));
-
-if (env === 'development') {
-    mongoose.connect('mongodb://localhost/nodelms');
-} else {
-    mongoose.connect(process.env.DBCONN);
-}
-
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error...'));
-db.once('open', function callback(){
-   console.log('nodelms db opened');
-});
-
-app.get('/partials/*', function (req, res) {
-   res.render('../../public/app/' + req.params[0]);
-});
-
-// Finally catch all get requests and route them to index
-app.get('*', function(req, res) {
-        res.render('index');
-});
-
-// check for port value and set to default if it is not avail
-var port = process.env.PORT || 3030;
+require('./server/config/routes')(app);
 
 // Start the server and listen for connections
-app.listen(port);
-console.log('listening on port:' + port + "...");
+app.listen(config.port);
+console.log('listening on port:' + config.port + "...");
 
