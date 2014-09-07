@@ -11,9 +11,10 @@ require('./server/config/express')(app, config);
 
 require('./server/config/mongoose')(config);
 
+require('./server/config/passport')();
+
 require('./server/config/routes')(app);
 
 // Start the server and listen for connections
 app.listen(config.port);
 console.log('listening on port:' + config.port + "...");
-

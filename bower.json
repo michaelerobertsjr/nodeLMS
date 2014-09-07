@@ -19,6 +19,7 @@
     "toastr": "~2.0.3",
     "angular": "~1.2.21",
     "angular-resource": "~1.2.21",
-    "angular-route": "~1.2.21"
+    "angular-route": "~1.2.21",
+    "bootstrap": "~3.2.0"
   }
 }
